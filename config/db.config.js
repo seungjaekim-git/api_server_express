@@ -54,7 +54,7 @@ class DBConnection {
                 }
                 resolve(result);
             }
-            this.db.execute(sql, values, callback);
+            this.db.query(sql, values, callback);
 
             // 에러 발생시 커스템 에러 발생
         }).catch(err => {
