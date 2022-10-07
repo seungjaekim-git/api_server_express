@@ -1,20 +1,32 @@
-const query = require('../config/db.config.js');
+const DBConnection = require('../config/db.config.js');
 const { multipleColumnSet } = require('../utils/common.utils');
 const Role = require('../enum/user.roles');
 
-class UserModel {
-    tableName = 'user';
+var tableName = 'users'
 
-    findOne = async (params) => {
-        const { columnSet, values } = multipleColumnSet(params)
+module.exports = {
 
-        const sql = `SELECT * FROM ${this.tableName}
-        WHERE ${columnSet}`;
+    findOne : async (id) => {
 
-        const result = await query(sql, [...values]);
+        /*
+            params = {
+                ID : id
+                PW : pass
+            }
+         */
+        const sql = `SELECT *
+                     FROM users
+                     WHERE ID = ${id}`;
+
+        // sql = select * from user where id = 123
+
+        const result = await DBConnection.query(sql,[]);
 
         return result[0];
-    }
-}
+    },
 
-module.exports = new UserModel;
+    signup : async (params) => {
+
+    }
+
+}

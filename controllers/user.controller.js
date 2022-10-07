@@ -11,9 +11,9 @@ class UserController {
     userLogin = async (req, res, next) => {
         this.checkValidation(req);
 
-        const { email: email, password: pass } = req.body;
+        const { ID: id, PW: pass, NAME: name } = req.body;
 
-        const user = await UserModel.findOne({ email });
+        const user = await UserModel.findOne({ id });
 
         if (!user) {
             throw new ExceptionClass(401, 'Unable to login!');
@@ -26,13 +26,14 @@ class UserController {
         }
 
         const secretKey = process.env.SECRET_JWT || "";
-        const token = jwt.sign({ user_id: user.id.toString() }, secretKey, {
+        const token = jwt.sign({ user_id: user.id.toString(), user_name : user.name.toString() }, secretKey, {
             expiresIn: '24h'
         });
 
-        const { password, ...userWithoutPassword } = user;
-
-        res.send({ ...userWithoutPassword, token });
+        return res.json(token);
+        // const { password, ...userWithoutPassword } = user;
+        //
+        // res.send({ ...userWithoutPassword, token });
     };
 
     checkValidation = (req) => {
@@ -41,8 +42,6 @@ class UserController {
             throw new ExceptionClass(400, 'Validation faild', errors);
         }
     }
-
-
 }
 
-module.exports = new UserController;
+module.exports = new UserController();
