@@ -53,6 +53,7 @@ class PictureModel {
         return affectedRows;
 
     }
+
 }
 
 module.exports = new PictureModel();

@@ -3,12 +3,13 @@ const router = express.Router();
 const uploadFile = require('../middleware/upload.file.middleware')
 const pictureController = require('../controllers/picture.controller');
 
-// 유저 확인 필요
+
 // 사진 업로드 API
 router.post('/', uploadFile.any(), async (req,res,next) => {
     console.log(req);
     return await pictureController.uploadFiles(req,res,next);
 })
+
 
 // 유저 확인 필요
 // 사진 리스트 확인 API
@@ -29,6 +30,7 @@ router.get('/:pic_id', async (req, res, next) => {
 router.delete('/:pic_id', async (req, res, next) => {
     // 사진 삭제하는 로직
     return await pictureController.deleteOneFile(req,res,next);
+
 })
 
 

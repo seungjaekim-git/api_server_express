@@ -7,11 +7,11 @@ const jwt = require('jsonwebtoken');
 // 트랜잭션 처리도 고민해봐야됨
 // 전송도중 인터넷이 끊기는 경우도 있으니께
 // 서버가 꺼지면 ? 이건 사업부가 결정하는것
-
 // 모든 리턴값 포멧 수정 필요
 class PictureController {
 
     // 파일 업로드 로직
+
     uploadFiles = async (req, res, next) => {
 
         console.log(req.files)
