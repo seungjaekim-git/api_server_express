@@ -26,7 +26,7 @@ class PictureController {
             throw new Error('No File is Inputted');
         }
 
-        return res.status(200).send('Upload Completed');
+        return res.status(200).json('Upload Completed');
 
     };
 
