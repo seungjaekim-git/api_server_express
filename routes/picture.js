@@ -10,7 +10,6 @@ router.post('/', uploadFile.any(), async (req,res,next) => {
     return await pictureController.uploadFiles(req,res,next);
 })
 
-
 // 유저 확인 필요
 // 사진 리스트 확인 API
 router.get('/', async (req, res, next) => {

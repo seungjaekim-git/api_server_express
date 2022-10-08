@@ -1,0 +1,63 @@
+<html>
+<head>
+    <style>
+        div.gallery {
+            margin: 5px;
+            border: 1px solid #ccc;
+            float: left;
+            width: 180px;
+        }
+
+        div.gallery:hover {
+            border: 1px solid #777;
+        }
+
+        div.gallery img {
+            width: 100%;
+            height: auto;
+        }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<script>
+    const token = localStorage.getItem("token");
+    window.addEventListener('load',() => {
+        fetch('/api/pic',{
+            headers: {
+                Authorization : token
+            },
+            method: 'GET'
+        }).then((response) => {
+            response.json()
+            console.log(response.json());
+        if (response.statusCode === 200) {
+            response.json().result.forEach( function ( post ) {
+                $('#display_posts').append( display_posts_template_revised( post ) );
+            });
+
+        }
+        }).catch(err => alert(err))});
+
+</script>
+
+<script type="text/html" id="tmpl-display-posts-revised">
+    <div class="gallery">
+        <a target="_blank" href= " {{data.file_url}} ">
+            <img src="{{data.file_url}}" alt=" {{data.file_original_name }}" width="600" height="400">
+        </a>
+        <div class="desc">{{data.file_original_name }} / {{ data.file_saved }}</div>
+    </div>
+</script>
+
+<body>
+<div id="display_posts">
+
+</div>
+
+</body>
+</html>
