@@ -7,10 +7,7 @@
 
 *.iml
 /node_modules
-<<<<<<< HEAD
-=======
 /public/images
->>>>>>> 8829773238228d91bcb927966809bf981dc5c1c6
 
 # User-specific stuff
 .idea/**/workspace.xml
