@@ -61,7 +61,7 @@ class DBConnection {
             // const mysqlErrorList = Object.keys(HttpStatusCodes);
             // // convert mysql errors which in the mysqlErrorList list to http status code
             // err.status = mysqlErrorList.includes(err.code) ? HttpStatusCodes[err.code] : err.status;
-
+            console.log(err);
             throw err;
         });
     }
