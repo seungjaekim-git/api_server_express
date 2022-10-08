@@ -14,19 +14,19 @@ module.exports = {
     //회원가입
     signup : async function(request, response, next){
     
-        const user = await UserModel.findOne(request.ID);
+        const user = await UserModel.findID(request.body.ID);
         
         console.log('signup user확인');
         console.log(user);
 
         // 유저id 존재하면 회원가입 불가
-        if (user.length === 0){
+        if (user){
 
             return new Error('User ID exist, signup fail');
         }else{
 
             // id 존재 x -> 회원가입 - db create
-            const result = await UserModel.create(request.ID,request.PW,request.NAME);
+            const result = await UserModel.create(request.body.ID,request.body.PW,request.body.NAME);
             
             //회원가입 - status 보내기
             return response.status(200).json('Signup success');
