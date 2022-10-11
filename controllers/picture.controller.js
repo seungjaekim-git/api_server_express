@@ -26,7 +26,7 @@ class PictureController {
             throw new Error('No File is Inputted');
         }
 
-        return res.status(200).json('Upload Completed');
+        return res.status(200).json({'MSG':'Upload Completed'});
 
     };
 
@@ -35,13 +35,12 @@ class PictureController {
 
         console.log(req);
 
-        const user_id = req.user_id || 1;
+        const user_id = req.user_id;
 
-        //const result = await PictureModel.findList(req.user_id);
         const result = await PictureModel.findList(user_id);
 
         return res.status(200).send({
-            result
+            'RESULT' : result
         });
     }
 
@@ -50,10 +49,10 @@ class PictureController {
 
         console.log(req);
 
-        const result = await PictureModel.findOne(req.pic_id);
+        const result = await PictureModel.findOne(req.params.pic_id);
 
         return res.status(200).send({
-            result
+            'RESULT' : result
         })
     }
 
@@ -62,12 +61,21 @@ class PictureController {
 
         console.log(req);
 
+        const pic_id = req.params.pic_id;
+
         // 해당 picture들 중에 삭제 요청한 사진 아이디값이 있는지 체크 필요
         const pictures = await PictureModel.findList(req.user_id);
 
-        const result = await PictureModel.deleteOne(req.pic_id);
+        const isUserPicture = pictures.filter((item)=> item.id === pic_id);
 
-        return res.status(200).send('Delete Completed');
+        if (!isUserPicture){
+            return new Error("Not Valid Request")
+        }
+        // 몇개의 아이템이 사라졌는지 나타내는 함수
+        // 만약 사라졌다면 result == 1
+        const result = await PictureModel.deleteOne(req.params.pic_id);
+
+        return res.status(200).send({'MSG':'Delete Completed'});
 
     }
 }

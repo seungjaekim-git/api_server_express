@@ -23,7 +23,7 @@ class PictureModel {
     // 사진 리스트 정보 조회 쿼리
     findList = async (user_id) => {
 
-        const sql = `SELECT * FROM ${this.tableName} WHERE user_id = ${user_id}`;
+        const sql = `SELECT * FROM ${this.tableName} WHERE user_id = ${user_id} ORDER BY file_saved`;
 
         const result = await DBConnection.query(sql);
 

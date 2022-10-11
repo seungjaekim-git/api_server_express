@@ -29,7 +29,7 @@ module.exports = {
             const result = await UserModel.create(request.body.ID,request.body.PW,request.body.NAME);
             
             //회원가입 - status 보내기
-            return response.status(200).json('Signup success');
+            return response.status(200).json({'MSG':'Signup success'});
         } 
     },
 
@@ -77,11 +77,11 @@ module.exports = {
         }else{
 
             //토큰
-            const accesstoken = jwt.sign(user);        
+            const accesstoken = jwt.sign(finduserID);
             console.log(accesstoken);
 
             //200 token psuh
-            return response.status(200).send(accesstoken);
+            return response.status(200).send({'TOKEN':accesstoken});
         }
     }
 
