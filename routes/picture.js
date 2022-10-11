@@ -5,7 +5,7 @@ const pictureController = require('../controllers/picture.controller');
 
 
 // 사진 업로드 API
-router.post('/', uploadFile.any(), async (req,res,next) => {
+router.post('', uploadFile.any(), async (req,res,next) => {
     console.log(req);
     return await pictureController.uploadFiles(req,res,next);
 })

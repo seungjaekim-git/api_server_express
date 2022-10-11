@@ -1,7 +1,7 @@
 <html>
 <head>
     <style>
-        div.gallery {
+        div.gallery  {
             margin: 5px;
             border: 1px solid #ccc;
             float: left;
@@ -33,25 +33,21 @@
             },
             method: 'GET'
         }).then((response) => {
-            response.json()
-            console.log(response.json());
-        if (response.statusCode === 200) {
-            response.json().result.forEach( function ( post ) {
-                $('#display_posts').append( display_posts_template_revised( post ) );
+            return response.json()
+        }).then((data) => {
+            console.log(data);
+            data.result.forEach( function ( post ) {
+                var htmlOutput  = ''
+                htmlOutput += '<div class="gallery">' +
+                    '<a target="_blank" href= "' + post.file_url + '">' +
+                        '<img src="' + post.file_url + '" alt="' + data.file_original_name+ '" width="600" height="400">' +
+                    '</a>' +
+                    '<div class="desc">' + post.file_original_name +"/"+ post.file_saved + '</div>' +
+                '</div>';
+                document.getElementById('display_posts').append(htmlOutput);
             });
-
-        }
         }).catch(err => alert(err))});
 
-</script>
-
-<script type="text/html" id="tmpl-display-posts-revised">
-    <div class="gallery">
-        <a target="_blank" href= " {{data.file_url}} ">
-            <img src="{{data.file_url}}" alt=" {{data.file_original_name }}" width="600" height="400">
-        </a>
-        <div class="desc">{{data.file_original_name }} / {{ data.file_saved }}</div>
-    </div>
 </script>
 
 <body>
